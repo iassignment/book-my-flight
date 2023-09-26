@@ -1,0 +1,66 @@
+#%RAML 1.0
+title: BookMyFlight
+
+traits:
+  client-id-required:
+    headers:
+      client_id:
+        type: string
+      client_secret:
+        type: string
+    responses:
+      401:
+        description: Unauthories client id credentials
+      500:
+        description: Bad response from authorisation server or WSDL SOAP Fault error
+
+/flights:
+  get:
+    is: [client-id-required]
+    description: Send data of available flights
+    queryParameters:
+      date: 
+        description: Date of travel
+        type: date-only
+      
+      origin:
+        type: string
+
+      destination:
+        type: string
+
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              !include examples/flightGetResponse.json           
+
+  post:
+    body:
+      application/json:
+       example:
+         !include examples/flightPostBody.raml
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              !include examples/flightPostResponse.json
+
+/cabs:
+  get:
+    description: Suggest best cab provider depending on origin and destination
+    queryParameters:
+      origin:
+        type: string
+        required: true
+      destination:
+        type: string
+        required: true
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              !include examples/cabsResponse.json

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<file:config name="Cabs_File_Config" doc:name="File Config" doc:id="ad379dcc-33d6-476d-8c9b-eece496516c9" >
+		<file:connection workingDir="C:\Users\poornavelagam\Desktop\Assignment\book-my-flight\src\main\resources" />
+	</file:config>
+	<flow name="cabsFlow" doc:id="43bb18ab-4a24-4c8f-94aa-8e372fe47144" >
+		<ee:transform doc:name="QueryParams" doc:id="1c54bed8-f013-4a9a-b011-55c106a87314" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="origin" ><![CDATA[%dw 2.0
+output application/java
+---
+attributes.queryParams[0]]]></ee:set-variable>
+				<ee:set-variable variableName="destination" ><![CDATA[%dw 2.0
+output application/java
+---
+attributes.queryParams[1]]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<file:read doc:name="Read rules" doc:id="5f555f21-4dfb-45c9-a2bf-ee2a4d3c4165" config-ref="Cabs_File_Config" path="cabs.csv" />
+		<foreach doc:name="For Each rule " doc:id="f540f8eb-da6c-487d-9c7d-9e30acb59527" >
+			<ee:transform doc:name="" doc:id="5c9dbe7b-a0ba-46e8-9816-0006fdf35b81" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/dw
+---
+payload]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+			<choice doc:name="Choice" doc:id="586d1fe5-36a1-40d0-bed0-f18a71662beb" >
+				<when expression="#[payload.origin[0] == vars.origin]">
+					<choice doc:name="Choice" doc:id="92b4d815-2224-44c5-964d-89d23032ee5f" >
+						<when expression="#[payload.destination[0] == vars.destination]">
+							<set-variable value="#[payload.partner]" doc:name="cab partner " doc:id="d588e66d-7767-456c-9d13-5a2d65ba7377" variableName="cabPartner"/>
+							<logger level="INFO" doc:name="Cab Partner Identified" doc:id="aaf72192-8566-47ab-b591-0253012703c3" />
+						
+</when>
+					</choice>
+				</when>
+			</choice>
+		</foreach>
+		<choice doc:name="Choice" doc:id="47d2d423-ff0a-4cca-988c-f123aadfa773" >
+			<when expression="#[vars.cabPartner[0] == null]">
+				<ee:transform doc:name="No Cabs" doc:id="6ee35d32-1d2d-41ad-9565-3d0d72eb7b7e" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+"No cabs partner found in this route"]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Display cab partner" doc:id="61471ddc-d16e-4155-abc6-9753e46eb9b2">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+vars.cabPartner[0]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+			</otherwise>
+		</choice>
+	</flow>
+	</mule>

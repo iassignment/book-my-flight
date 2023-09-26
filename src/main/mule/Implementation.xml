@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mule xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit-soap="http://www.mulesoft.org/schema/mule/apikit-soap" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/apikit-soap http://www.mulesoft.org/schema/mule/apikit-soap/current/mule-apikit-soap.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+    <db:config name="Database_Config" doc:name="Database Config" doc:id="ef177270-bd66-4928-ad7f-3fc65fb71c58" >
+		<db:my-sql-connection host="localhost" port="3306" user="root" password="root" database="tajgrouphotel" />
+	</db:config>
+    <flow name="GetHotelByID" doc:id="ee21ad99-48dc-43dd-ab05-66e67389a1b3">
+		<ee:transform doc:name="Transform Message1" doc:id="69e45cbc-46bc-4ff3-bd97-4d8de859aa98">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Transform Message2" doc:id="12b09565-0695-438f-a707-82303ff80fe3">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	Hid: payload.body.GetHotelNew.Hid
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<set-variable value="#[output application/java&#10;---&#10;&quot;SELECT * FROM tajgrouphotel.hotel where H_id='&quot;++ (payload.Hid default &quot;&quot;)++&quot;'&quot;]" doc:name="IDQuery" doc:id="4d873416-9e05-42e1-95e9-b22fd7de8afc" variableName="IDQuery" />
+		<db:select doc:name="Select" doc:id="b485061d-b5ef-450a-8766-d7769f06ee91" config-ref="Database_Config">
+			<db:sql ><![CDATA[#[vars.IDQuery]]]></db:sql>
+		</db:select>
+		<ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns ns0 http://www.example.org/NewWSDLFile/
+---
+{
+	body: {
+		ns0#GetHotelNewResponse: {
+			Hid: payload.H_id,
+			Hname: payload.H_name,
+			City: payload.H_city,
+			Location: payload.H_location,
+			Guests: payload.H_guests,
+			CheckIN: payload.H_checkin,
+			CheckOUT: payload.H_checkout,
+			Price: payload.H_price,
+			TotalRooms: payload.H_totalrooms,
+			AvailableRooms: payload.H_availabllerooms
+		}
+	} write "application/xml"
+}]]>
+                </ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="PostHotel" doc:id="ba70784b-9cf1-4892-b13c-5e3e49054cf5">
+		<ee:transform doc:name="Transform Message" doc:id="f4227419-44b4-4f51-9490-01a8c381e710" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+ns ns0 http://www.example.org/NewWSDLFile/
+---
+{
+	body: {
+		ns0#PostHotelNewResponse: {
+			ResponseMessage: "Info Added"			
+		}
+	} write "application/xml"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+    </flow>
+	<flow name="GetAllHotel" doc:id="66732ac0-e600-47e2-98a5-51c801243148">
+		<ee:transform doc:name="Transform Message" doc:id="9849aa85-a3b3-46b7-9057-43e20cbff806" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Transform Message" doc:id="492377fc-ae9b-4eb9-90e3-e7a343e29fac">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+    Hname: payload.body.GetAllHotelNew.Hname,
+    City: payload.body.GetAllHotelNew.City
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<set-variable value="#[output application/java&#10;---&#10;&quot;select H_id,H_name,H_city,H_location,H_guests,H_price,H_availabllerooms from hotel where H_id='&quot;++ (payload.Hid default &quot;&quot;)++&quot;' or H_name='&quot;++ (payload.Hname default &quot;&quot;)++&quot;' or H_city='&quot;++ (payload.City default &quot;&quot;)++&quot;'&quot;]" doc:name="Query" doc:id="90c044af-f71f-4565-b89d-398279c6161d" variableName="Query" />
+		<db:select doc:name="Select" doc:id="143ed5c1-ddc5-4e81-a872-129370810718" config-ref="Database_Config">
+			<db:sql><![CDATA[#[vars.Query]]]></db:sql>
+		</db:select>
+		<ee:transform doc:name="Transform Message1" doc:id="870c836a-6446-45d8-b602-65ef6fc63046">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns ns0 http://www.example.org/NewWSDLFile/
+---
+{
+	body: {
+		ns0#GetHotelNewResponse: {
+			Hid: payload.H_id,
+			Hname: payload.H_name,
+			City: payload.H_city,
+			Location: payload.H_location,
+			Guests: payload.H_guests,
+			Price: payload.H_price,
+			TotalRooms: payload.H_totalrooms,
+			AvailableRooms: payload.H_availabllerooms
+		}
+	} write "application/xml"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+    </flow>
+</mule>

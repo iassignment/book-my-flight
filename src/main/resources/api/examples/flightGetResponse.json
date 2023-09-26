@@ -1,0 +1,166 @@
+{
+  "flight": [
+    {
+      "flightNumber": 1234,
+      "airline": "Indigo",
+      "origin": "Hyderabad",
+      "destination": "Bangalore",
+      "departureDate": "2023-07-21T15:14:51.202Z",
+      "arrivalDate": "2023-07-21T15:14:51.202Z",
+      "fare": 5999
+    },
+    {
+      "flightNumber": 1235,
+      "airline": "AirIndia",
+      "origin": "Hyderabad",
+      "destination": "Bangalore",
+      "departureDate": "2023-07-21T15:14:51.202Z",
+      "arrivalDate": "2023-07-21T15:14:51.202Z",
+      "fare": 6458
+    },
+    {
+      "flightNumber": 1237,
+      "airline": "Vistara",
+      "origin": "Hyderabad",
+      "destination": "Bangalore",
+      "departureDate": "2023-07-21T15:14:51.202Z",
+      "arrivalDate": "2023-07-21T15:14:51.202Z",
+      "fare": 8750
+    },
+    {
+      "flightNumber": 1238,
+      "airline": "Indigo",
+      "origin": "Hyderabad",
+      "destination": "Delhi",
+      "departureDate": "2023-07-21T15:14:51.202Z",
+      "arrivalDate": "2023-07-21T15:14:51.202Z",
+      "fare": 6350
+    },
+    {
+      "flightNumber": 1239,
+      "airline": "AirIndia",
+      "origin": "Hyderabad",
+      "destination": "Delhi",
+      "departureDate": "2023-07-21T15:14:51.202Z",
+      "arrivalDate": "2023-07-21T15:14:51.202Z",
+      "fare": 5999
+    },
+    {
+      "flightNumber": 1240,
+      "airline": "Vistara",
+      "origin": "Hyderabad",
+      "destination": "Delhi",
+      "departureDate": "2023-07-21T15:14:51.202Z",
+      "arrivalDate": "2023-07-21T15:14:51.202Z",
+      "fare": 9850
+    },
+    {
+      "flightNumber": 1241,
+      "airline": "Indigo",
+      "origin": "Hyderabad",
+      "destination": "Mumbai",
+      "departureDate": "2023-07-21T15:14:51.202Z",
+      "arrivalDate": "2023-07-21T15:14:51.202Z",
+      "fare": 5999
+    },
+    {
+      "flightNumber": 1242,
+      "airline": "AirIndia",
+      "origin": "Hyderabad",
+      "destination": "Mumbai",
+      "departureDate": "2023-07-21T15:14:51.202Z",
+      "arrivalDate": "2023-07-21T15:14:51.202Z",
+      "fare": 3450
+    },
+    {
+      "flightNumber": 1243,
+      "airline": "Vistara",
+      "origin": "Hyderabad",
+      "destination": "Mumbai",
+      "departureDate": "2023-07-21T15:14:51.202Z",
+      "arrivalDate": "2023-07-21T15:14:51.202Z",
+      "fare": 6750
+    },
+    {
+      "flightNumber": 1244,
+      "airline": "Indigo",
+      "origin": "Bangalore",
+      "destination": "Delhi",
+      "departureDate": "2023-07-21T15:14:51.202Z",
+      "arrivalDate": "2023-07-21T15:14:51.202Z",
+      "fare": 6750
+    },
+    {
+      "flightNumber": 1245,
+      "airline": "AirIndia",
+      "origin": "Bangalore",
+      "destination": "Delhi",
+      "departureDate": "2023-07-21T15:14:51.202Z",
+      "arrivalDate": "2023-07-21T15:14:51.202Z",
+      "fare": 4550
+    },
+    {
+      "flightNumber": 1246,
+      "airline": "Vistara",
+      "origin": "Bangalore",
+      "destination": "Delhi",
+      "departureDate": "2023-07-21T15:14:51.202Z",
+      "arrivalDate": "2023-07-21T15:14:51.202Z",
+      "fare": 8800
+    },
+    {
+      "flightNumber": 1247,
+      "airline": "Indigo",
+      "origin": "Bangalore",
+      "destination": "Mumbai",
+      "departureDate": "2023-07-21T15:14:51.202Z",
+      "arrivalDate": "2023-07-21T15:14:51.202Z",
+      "fare": 5500
+    },
+    {
+      "flightNumber": 1248,
+      "airline": "AirIndia",
+      "origin": "Bangalore",
+      "destination": "Mumbai",
+      "departureDate": "2023-07-21T15:14:51.202Z",
+      "arrivalDate": "2023-07-21T15:14:51.202Z",
+      "fare": 6750
+    },
+    {
+      "flightNumber": 1249,
+      "airline": "Vistara",
+      "origin": "Bangalore",
+      "destination": "Mumbai",
+      "departureDate": "2023-07-21T15:14:51.202Z",
+      "arrivalDate": "2023-07-21T15:14:51.202Z",
+      "fare": 7750
+    },
+    {
+      "flightNumber": 1250,
+      "airline": "Indigo",
+      "origin": "Delhi",
+      "destination": "Mumbai",
+      "departureDate": "2023-07-21T15:14:51.202Z",
+      "arrivalDate": "2023-07-21T15:14:51.202Z",
+      "fare": 6750
+    },
+    {
+      "flightNumber": 1251,
+      "airline": "AirIndia",
+      "origin": "Delhi",
+      "destination": "Mumbai",
+      "departureDate": "2023-07-21T15:14:51.202Z",
+      "arrivalDate": "2023-07-21T15:14:51.202Z",
+      "fare": 5500
+    },
+    {
+      "flightNumber": 1252,
+      "airline": "Vistara",
+      "origin": "Delhi",
+      "destination": "Mumbai",
+      "departureDate": "2023-07-21T15:14:51.202Z",
+      "arrivalDate": "2023-07-21T15:14:51.202Z",
+      "fare": 8850
+    }
+  ]
+}

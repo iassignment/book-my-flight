@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:request-config name="indigo_Request_configuration" doc:name="HTTP Request configuration" doc:id="5d1f73f6-3f14-4275-b932-f28dea7a7d74" />
+	<flow name="postFlightsFlow" doc:id="4ebf44da-866c-49b6-9217-c3eb779a2ee0" >
+		<http:request method="POST" doc:name="Send booking request" doc:id="d568aacf-2e1c-4b48-b736-3d96753cdada" config-ref="indigo_Request_configuration" url="${url.host}"/>
+		<ee:transform doc:name="response" doc:id="b378d261-705c-4ec8-bbfe-3ccfb5509f7f" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Success" doc:id="148b42e4-f56f-4969-9685-ddb8f5413395" message="postFlightsFlow completed successfully"/>
+	</flow>
+	<flow name="getFlightsFlow" doc:id="0a7f14f5-ef8e-4494-805d-d96d9ca2d14d" >
+		<ee:transform doc:name="QueryParams" doc:id="48d7710c-b9c0-4052-8402-5b185f037bb5">
+			<ee:message>
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable variableName="date"><![CDATA[%dw 2.0
+output application/java
+---
+attributes.queryParams.date]]></ee:set-variable>
+				<ee:set-variable variableName="origin"><![CDATA[%dw 2.0
+output application/java
+---
+attributes.queryParams.origin]]></ee:set-variable>
+				<ee:set-variable variableName="destination"><![CDATA[%dw 2.0
+output application/java
+---
+attributes.queryParams.destination]]></ee:set-variable>
+				<ee:set-variable variableName="op" ><![CDATA[%dw 2.0
+output application/json
+---
+"["]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<http:request method="GET" doc:name="Get all flights" doc:id="59998138-13e5-4eb1-bbc3-6349a5e35a1a" config-ref="indigo_Request_configuration" url="${url.host}"/>
+		<ee:transform doc:name="Format response" doc:id="d2b03cfb-050e-4144-a32c-160ff8c524e0" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload[0]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<foreach doc:name="For Each" doc:id="fc45ff02-501c-405c-9e4e-3f573d508b48" >
+			<ee:transform doc:name="Transform Message" doc:id="e37f81db-0042-401e-85a3-bd49938ca1ae" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+			<choice doc:name="Choice" doc:id="14d5fd13-e5d8-49ba-aa1a-394916032d49" >
+				<when expression="#[(payload.departureDate contains  vars.date) and (payload.origin == vars.origin) and (payload.destination == vars.destination)]">
+					<ee:transform doc:name="Transform Message" doc:id="0179d6cd-f801-480e-b35f-930df88fd4b1">
+						<ee:message>
+							<ee:set-payload><![CDATA[%dw 2.0
+output text
+---
+write(payload,'application/json')]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+					<ee:transform doc:name="Transform Message" doc:id="b5c33da4-fce7-422b-9398-6f45fd0546a9" >
+						<ee:message >
+						</ee:message>
+						<ee:variables >
+							<ee:set-variable variableName="op" ><![CDATA[%dw 2.0
+output application/json
+---
+vars.op ++ payload ]]></ee:set-variable>
+						</ee:variables>
+					</ee:transform>
+				</when>
+			</choice>
+		</foreach>
+		<choice doc:name="Choice" doc:id="eb3b30ef-90ab-43ac-af71-bbed0e071d12" >
+			<when expression="#[vars.op == '[']">
+				<ee:transform doc:name="Transform Message" doc:id="722f95be-d567-4d96-85f0-13527fc56762" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output text
+---
+"No flights found"]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Transform Message" doc:id="7939ea0d-e3f7-4c4b-819b-d3e5eedb0785">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+
+output text
+
+---
+vars.op]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="Success" doc:id="9e556cdd-25e6-4ef5-83f9-fdeb88b2a9d6" message="Get Flights Flow successful"/>
+	</flow>
+</mule>
