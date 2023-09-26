@@ -38,6 +38,7 @@
             <workerType>${vCore}</workerType>
             <workers>${workers}</workers>
             <objectStoreV2>true</objectStoreV2>
+            <deploymentTimeout>1000000000</deploymentTimeout>
         </cloudHubDeployment>
 					<sharedLibraries>
 						<sharedLibrary>
