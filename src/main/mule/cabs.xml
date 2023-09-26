@@ -9,8 +9,9 @@
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
 http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd 
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
-	<file:config name="Cabs_File_Config" doc:name="File Config" doc:id="ad379dcc-33d6-476d-8c9b-eece496516c9" >
-		<file:connection workingDir="C:\Users\poornavelagam\Desktop\Assignment\book-my-flight\src\main\resources" />
+	
+	<file:config name="Cabs_file_config" doc:name="File Config" doc:id="c38a3a48-d7ff-43a7-99b0-cd5b9bd90636" >
+		<file:connection workingDir="#[p('app.home')]" />
 	</file:config>
 	<flow name="cabsFlow" doc:id="43bb18ab-4a24-4c8f-94aa-8e372fe47144" >
 		<ee:transform doc:name="QueryParams" doc:id="1c54bed8-f013-4a9a-b011-55c106a87314" >
@@ -27,7 +28,7 @@ output application/java
 attributes.queryParams[1]]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
-		<file:read doc:name="Read rules" doc:id="5f555f21-4dfb-45c9-a2bf-ee2a4d3c4165" config-ref="Cabs_File_Config" path="cabs.csv" />
+		<file:read doc:name="Read" doc:id="abe67620-f826-441c-8122-5eecb2111e38" config-ref="Cabs_file_config" path="cabs.csv"/>
 		<foreach doc:name="For Each rule " doc:id="f540f8eb-da6c-487d-9c7d-9e30acb59527" >
 			<ee:transform doc:name="" doc:id="5c9dbe7b-a0ba-46e8-9816-0006fdf35b81" >
 				<ee:message >
