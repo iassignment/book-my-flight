@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/NewWSDLFile/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="NewWSDLFile" targetNamespace="http://www.example.org/NewWSDLFile/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/NewWSDLFile/">
+      <xsd:element name="GetHotelNew">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Hid" type="xsd:int" maxOccurs="1" minOccurs="1"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetHotelNewResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+          	<xsd:element name="Hid" type="xsd:int" />
+          	<xsd:element name="Hname" type="xsd:string"></xsd:element>
+          	<xsd:element name="City" type="xsd:string"></xsd:element>
+          	<xsd:element name="Location" type="xsd:string"></xsd:element>
+          	<xsd:element name="Guests" type="xsd:int"></xsd:element>
+          	<xsd:element name="CheckIN" type="xsd:date"></xsd:element>
+          	<xsd:element name="CheckOUT" type="xsd:date"></xsd:element>
+          	<xsd:element name="Price" type="xsd:float"></xsd:element>
+          	<xsd:element name="TotalRooms" type="xsd:int"></xsd:element>
+          	<xsd:element name="AvailableRooms" type="xsd:int"></xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAllHotelNew">
+      	<xsd:complexType>
+      		<xsd:sequence>
+​
+      			<xsd:element name="Hname" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
+      			<xsd:element name="City" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
+​
+​
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAllHotelNewResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+​
+      			<xsd:element name="Hid" type="xsd:int"></xsd:element>
+      			<xsd:element name="Hname" type="xsd:string"></xsd:element>
+      			<xsd:element name="City" type="xsd:string"></xsd:element>
+      			<xsd:element name="Location" type="xsd:string"></xsd:element>
+      			<xsd:element name="Guests" type="xsd:int"></xsd:element>
+      			<xsd:element name="CheckIN" type="xsd:date"></xsd:element>
+      			<xsd:element name="CheckOUT" type="xsd:date"></xsd:element>
+      			<xsd:element name="Price" type="xsd:float"></xsd:element>
+      			<xsd:element name="TotalRooms" type="xsd:int"></xsd:element>
+      			<xsd:element name="AvailableRooms" type="xsd:int"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="PostHotelNew">
+      	<xsd:complexType>
+      		<xsd:sequence>
+​
+      			<xsd:element name="Hid" type="xsd:int" maxOccurs="1" minOccurs="1"></xsd:element>
+      			<xsd:element name="Hname" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+      			<xsd:element name="City" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+      			<xsd:element name="Location" type="xsd:string"></xsd:element>
+      			<xsd:element name="Guests" type="xsd:int" maxOccurs="1" minOccurs="1"></xsd:element>
+      			<xsd:element name="CheckIN" type="xsd:date" maxOccurs="1" minOccurs="1"></xsd:element>
+      			<xsd:element name="CheckOUT" type="xsd:date" maxOccurs="1" minOccurs="1"></xsd:element>
+      			<xsd:element name="Price" type="xsd:float"></xsd:element>
+      			<xsd:element name="TotalRooms" type="xsd:int"></xsd:element>
+      			<xsd:element name="AvailableRoms" type="xsd:int"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="PostHotelNewResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+​
+      			<xsd:element name="ResponseMessage" type="xsd:string"
+      				maxOccurs="1" minOccurs="1">
+      			</xsd:element>
+​
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="GetHotelNewRequest">
+    <wsdl:part element="tns:GetHotelNew" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetHotelNewResponse">
+    <wsdl:part element="tns:GetHotelNewResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetAllHotelNewRequest">
+  	<wsdl:part name="parameters" element="tns:GetAllHotelNew"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetAllHotelNewResponse">
+  	<wsdl:part name="parameters" element="tns:GetAllHotelNewResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PostHotelNewRequest">
+  	<wsdl:part name="parameters" element="tns:PostHotelNew"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PostHotelNewResponse">
+  	<wsdl:part name="parameters" element="tns:PostHotelNewResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="NewWSDLFile">
+    <wsdl:operation name="GetHotelNew">
+      <wsdl:input message="tns:GetHotelNewRequest"/>
+      <wsdl:output message="tns:GetHotelNewResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllHotelNew">
+    	<wsdl:input message="tns:GetAllHotelNewRequest"></wsdl:input>
+    	<wsdl:output message="tns:GetAllHotelNewResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostHotelNew">
+    	<wsdl:input message="tns:PostHotelNewRequest"></wsdl:input>
+    	<wsdl:output message="tns:PostHotelNewResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NewWSDLFileSOAP" type="tns:NewWSDLFile">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetHotelNew">
+      <soap:operation soapAction="http://www.example.org/NewWSDLFile/GetHotelNew"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllHotelNew">
+      <soap:operation soapAction="http://www.example.org/NewWSDLFile/GetHotelNew"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostHotelNew">
+      <soap:operation soapAction="http://www.example.org/NewWSDLFile/GetHotelNew"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  
+  <wsdl:service name="NewWSDLFile">
+    <wsdl:port binding="tns:NewWSDLFileSOAP" name="HotelBookingServicesSOAP">
+      <soap:address location="http://localhost:8081/NewWSDLFile1/HotelBookingServicesSOAP"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
