@@ -123,13 +123,13 @@ output application/json
             </on-error-propagate>
         </error-handler>
     </flow>
-    <flow name="get:\cabs:bookmyflight-config">
+    <flow name="get:\cabs:bookmyflight-config" doc:id="08ce0562-36cd-4d62-be09-f56576d4abe3">
 		<flow-ref doc:name="cabsFlow Reference" doc:id="733299b1-d98b-4238-88dc-ea2fa37ca7b0" name="cabsFlow"/>
     </flow>
-    <flow name="get:\flights:bookmyflight-config">
+    <flow name="get:\flights:bookmyflight-config" doc:id="35ef0f82-a04b-4c40-96a3-65eca06a888d">
 		<flow-ref doc:name="getFlightsFlow Reference" doc:id="d24e2641-a37e-4104-a3a9-4769e5cef200" name="getFlightsFlow"/>
     </flow>
-    <flow name="post:\flights:application\json:bookmyflight-config">
+    <flow name="post:\flights:application\json:bookmyflight-config" doc:id="d2ddfa9d-6a02-41bb-81ea-00257571cf94">
 		<flow-ref doc:name="postFlightsFlow Reference" doc:id="a5d64e2e-1d4f-4f12-98cc-b5e8b62273e3" name="postFlightsFlow"/>
     </flow>
 </mule>

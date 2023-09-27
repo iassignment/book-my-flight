@@ -1,0 +1,12 @@
+{
+	"Hotelid": 1,
+	"Hotelname": "TajB",
+	"HotelCity": "Banglore",
+	"HotelLocation": "Banglore",
+	"HotelGuests": "4",
+	"HotelCheckIN": "2024/02/11",
+	"HotelCheckOUT": "2024/02/12",
+	"HotelPrice": 4000.00,
+	"HotelTotalRooms": 5,
+	"HotelAvailableRooms": 2
+}

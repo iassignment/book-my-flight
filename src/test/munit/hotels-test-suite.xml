@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="Implementation-suite.xml" />
+	<munit:test name="GetAllHotel-test-mum2" doc:id="2d5711ce-f74c-4ab7-8d73-fcd105b097db" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="ba93f10f-e389-4086-9792-f970050912a4" >
+				<munit:payload value="#[output application/java  --- readUrl('classpath://GetAllHoteltestmum2\set-event_payload.dwl')]" mediaType="application/java " />
+				<munit:attributes value="#[output application/java --- readUrl('classpath://GetAllHoteltestmum2\set-event_attributes.dwl')]" mediaType="application/java" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to GetAllHotel" doc:id="cc67eef2-8c9e-4833-b02b-97b677f5d914" name="GetAllHotel"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="b3eecf74-08c1-4c71-ae88-7449bfe8db60" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import GetAllHoteltestmum2::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="PostHotel-test-post" doc:id="0dd62ed9-dd20-4229-835a-2042108429ce" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="f6b48b01-5610-4b42-9fea-cecc574c4ad7" >
+				<munit:payload value="#[output application/java  --- readUrl('classpath://PostHoteltestpost\set-event_payload.dwl')]" mediaType="application/java " />
+				<munit:attributes value="#[output application/java --- readUrl('classpath://PostHoteltestpost\set-event_attributes.dwl')]" mediaType="application/java" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to PostHotel" doc:id="375a1947-352b-487a-9cfd-d4527766673c" name="PostHotel"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="ff375cd2-f5bc-44cf-a99e-df571a30e141" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import PostHoteltestpost::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="GetHotelByID-test-ID101" doc:id="e37f8480-a354-4c04-a669-13c9e6416b94" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="e3a87ff6-64b6-4271-bb71-63849acb61d8" >
+				<munit:payload value="#[output application/java  --- readUrl('classpath://GetHotelByIDtestID101\set-event_payload.dwl')]" mediaType="application/java " />
+				<munit:attributes value="#[output application/java --- readUrl('classpath://GetHotelByIDtestID101\set-event_attributes.dwl')]" mediaType="application/java" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to GetHotelByID" doc:id="31891422-9bd0-4472-8f61-f300bdbe611a" name="GetHotelByID"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="47a9622e-fc8c-4524-975b-7d4c5d656157" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import GetHotelByIDtestID101::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

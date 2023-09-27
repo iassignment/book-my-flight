@@ -1,0 +1,10 @@
+%dw 2.0
+
+type auto_35ef0f82_a04b_4c40_96a3_65eca06a888d_Output_Attributes = {|
+  queryParams: {|
+    date: String, 
+    destination: String, 
+    origin: String
+  |}
+|}
+

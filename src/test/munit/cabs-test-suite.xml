@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="cabs-test-suite.xml" />
+	<munit:test name="cabs-test-suite-cabsFlowTest" doc:id="4ae7253e-8b22-4c20-836d-1d2eed45286d" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="bcbe1546-c62e-4c13-acf0-a0417ab3a7a3">
+				<munit:attributes value='#[ { "queryParams": {"destination":"mysore","origin":"bangalore"}}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to cabsFlow" doc:id="fb992c94-675d-4042-9fee-8099d7383a79" name="get:\cabs:bookmyflight-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="f4512c3a-5cc1-4d9c-bbbf-b582a0e5e8e2" actual="#[payload]" expected="#['uber']"/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

@@ -21,11 +21,12 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<ee:set-variable variableName="origin" ><![CDATA[%dw 2.0
 output application/java
 ---
-attributes.queryParams[0]]]></ee:set-variable>
+attributes.queryParams.origin]]></ee:set-variable>
 				<ee:set-variable variableName="destination" ><![CDATA[%dw 2.0
 output application/java
 ---
-attributes.queryParams[1]]]></ee:set-variable>
+attributes.queryParams.destination
+]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
 		<file:read doc:name="Read" doc:id="abe67620-f826-441c-8122-5eecb2111e38" config-ref="Cabs_file_config" path="cabs.csv"/>

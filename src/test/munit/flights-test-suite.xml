@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:munit="http://www.mulesoft.org/schema/mule/munit"
+	xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<munit:config name="flights-test-suite.xml" />
+	<munit:test name="flights-test-suite-postFlightsFlowTest" doc:id="ef4c13ff-31e4-45b8-b33f-4ee53af30cfc" description="Test">
+		<munit:execution >
+			<ee:transform doc:name="Transform Message" doc:id="8c829005-c88d-48f2-a714-4d93c7af45ca" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  "flight": 1234,
+  "departure": "2023-07-21T15:54:29.801Z",
+  "arrival": "2023-07-21T15:54:29.801Z",
+  "origin": "hyd",
+  "destination": "del"
+}]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+			<flow-ref doc:name="Flow-ref to postFlightsFlow" doc:id="9c96a5c5-d57b-4673-b277-f87b65cc9c58" name="post:\flights:application\json:bookmyflight-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="331103c5-313a-4d31-bab6-9b2311eaebdc" actual="#[payload]" expected='#[{&#10;    "Success": "True"&#10;}]'/>
+		</munit:validation>
+	</munit:test>
+
+<munit:test name="flights-test-suite-getFlightsFlowTest"
+		doc:id="a5bd2d67-71b9-40ae-a2b8-2ee4ab6721c1">
+		<munit:execution>
+			<munit:set-event doc:name="Set Event">
+				<munit:attributes value='#[ { "queryParams": {"date": "2023-07-21",&#10; "destination":"Mumbai","origin":"Hyderabad"}}]' />
+
+			</munit:set-event>
+			<flow-ref doc:name="Flow Reference"
+				name="get:\flights:bookmyflight-config" doc:id="e2cc0ac8-9509-4e11-88e7-98407753c622"/>
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="d5930b1c-719e-4549-8e9b-df38dafa500b" actual='#[typeOf(payload) ~= "String"]' expected='#["true"]'/>
+		
+</munit:validation>
+	</munit:test>
+
+</mule>
