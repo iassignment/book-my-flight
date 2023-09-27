@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.mycompany</groupId>
 	<artifactId>book-my-flight</artifactId>
@@ -27,19 +29,26 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-				<cloudHubDeployment>
-            <uri>https://anypoint.mulesoft.com</uri>
-            <muleVersion>${mule.version}</muleVersion>
-            <username>${anypoint.username}</username>
-            <password>${anypoint.password}</password>
-            <environment>${env}</environment>
-            <applicationName>${appname}</applicationName>
-            <businessGroup>${business}</businessGroup>
-            <workerType>${vCore}</workerType>
-            <workers>${workers}</workers>
-            <objectStoreV2>true</objectStoreV2>
-            <deploymentTimeout>1000000000</deploymentTimeout>
-        </cloudHubDeployment>
+					<cloudHubDeployment>
+						<uri>https://anypoint.mulesoft.com</uri>
+						<muleVersion>${mule.version}</muleVersion>
+						<username>${anypoint.username}</username>
+						<password>${anypoint.password}</password>
+						<environment>${env}</environment>
+						<applicationName>${appname}</applicationName>
+						<businessGroup>${business}</businessGroup>
+						<workerType>${vCore}</workerType>
+						<workers>${workers}</workers>
+						<objectStoreV2>true</objectStoreV2>
+						<deploymentTimeout>1000000000</deploymentTimeout>
+						<connectedAppClientId>${ap.ca.client_id}</connectedAppClientId>
+						<connectedAppClientSecret> ${ap.ca.client_secret}</connectedAppClientSecret>
+						<connectedAppGrantType>client_credentials</connectedAppGrantType>
+						<properties>
+							<anypoint.platform.client_id> ${ap.client_id}</anypoint.platform.client_id>
+							<anypoint.platform.client_secret> ${ap.client_secret}</anypoint.platform.client_secret>
+						</properties>
+					</cloudHubDeployment>
 					<sharedLibraries>
 						<sharedLibrary>
 							<groupId>mysql</groupId>
@@ -94,11 +103,11 @@
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
-  <groupId>org.mule.connectors</groupId>
-  <artifactId>mule-file-connector</artifactId>
-  <version>1.3.3</version>
-  <classifier>mule-plugin</classifier>
-</dependency>
+			<groupId>org.mule.connectors</groupId>
+			<artifactId>mule-file-connector</artifactId>
+			<version>1.3.3</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
